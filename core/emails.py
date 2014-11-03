@@ -239,7 +239,7 @@ def guest_daily_update(location):
 	subject = "[%s] Events, Arrivals and Departures for %s" % (location.email_subject_prefix, str(today.date()))
 	
 	guest_emails = []
-	for r in Reservation.today.confirmed(location):
+	for r in Reservation.objects.confirmed_on_date(today, location):
 		if not r.user.email in guest_emails:
 			guest_emails.append(r.user.email)
 	if len(guest_emails) == 0:
@@ -361,7 +361,7 @@ def current(request, location_slug):
 
 	# Add any current reservations
 	current_emails = [] 
-	for r in Reservation.today.confirmed(location):
+	for r in Reservation.objects.confirmed_on_date(today, location):
 		current_emails.append(r.user.email)
 
 	# Add all the residents at this location
@@ -478,15 +478,15 @@ def stay(request, location_slug):
 		bcc_list.remove(sender)
 
 	# pass through attachments
-	logger.debug(request)
-	logger.debug(request.FILES)
-	for attachment in request.FILES.values():
-		a_file = default_storage.save('/tmp/'+attachment.name, ContentFile(attachment.read()))
+	#logger.debug(request)
+	#logger.debug(request.FILES)
+	#for attachment in request.FILES.values():
+	#	a_file = default_storage.save('/tmp/'+attachment.name, ContentFile(attachment.read()))
 	attachments = {}
-	num = 0
-	for attachment in request.FILES.values():
-		attachments["attachment[%d]"] = (attachment.name, open('/tmp/'+attachment.name, 'rb'))
-		num+= 1
+	#num = 0
+	#for attachment in request.FILES.values():
+	#	attachments["attachment[%d]"] = (attachment.name, open('/tmp/'+attachment.name, 'rb'))
+	#	num+= 1
 
 	# prefix subject, but only if the prefix string isn't already in the
 	# subject line (such as a reply)
@@ -585,15 +585,18 @@ def residents(request, location_slug):
 		bcc_list.remove(sender)
 	
 	# pass through attachments
-	logger.debug(request)
-	logger.debug(request.FILES)
-	for attachment in request.FILES.values():
-		a_file = default_storage.save('/tmp/'+attachment.name, ContentFile(attachment.read()))
+	#logger.debug(request)
+	#logger.debug(request.FILES)
+	#to_attach = []
+	#for attachment in request.FILES.values():
+	#	a_file = default_storage.save(attachment.name, ContentFile(attachment.read()))
+	#	to_attach.append(a_file)
+	#num=0
 	attachments = {}
-	num = 0
-	for attachment in request.FILES.values():
-		attachments["attachment[%d]"] = (attachment.name, open('/tmp/'+attachment.name, 'rb'))
-		num+= 1
+	#for f in to_attach:
+	#	attachments["attachment[%d]" % num] = (f.name, default_storage.open(f.name).read())
+	#	default_storage.delete(attachment)
+	#	num+= 1
 
 	# prefix subject, but only if the prefix string isn't already in the
 	# subject line (such as a reply)
