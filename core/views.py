@@ -278,7 +278,7 @@ def occupancy(request, location_slug):
 		'total_income_for_this_month':total_income_for_this_month, 'total_by_rooms': total_by_rooms, 
 		'paid_rate_discrepancy': paid_rate_discrepancy, 'payment_discrepancies': payment_discrepancies, 
 		'total_income_during_this_month': total_income_during_this_month, 'paid_amount_missing':paid_amount_missing,
-		'average_guests_per_day': float(total_person_nights)/(end -start).days })
+		'average_guests_per_day': float(total_person_nights)/(end -start).days,'reservations': reservations })
 
 @login_required
 def calendar(request, location_slug):

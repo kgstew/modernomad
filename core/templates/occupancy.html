@@ -11,11 +11,6 @@
 	<a href="?month={{next_month.month}}&year={{next_month.year}}">Next</a>
 	<span class="icon-spacer-left"><i class="icon-arrow-right"></i></span>
 </div>
-<script type="text/javascript">
-    $(document).ready ( function(){
-            alert("test"); 
-        });
-</script>
 
   <script>
   	$(function () { 
@@ -24,27 +19,26 @@
 	            type: 'bar'
 	        },
 	        title: {
-	            text: 'Fruit Consumption'
+	            text: 'Guest Nights by Room'
 	        },
 	        xAxis: {
-	            categories: ['Apples', 'Bananas', 'Oranges']
+	            categories: ['Peacock Room', 'Friends Room', 'Samis Hostel', 'Peace Room', 'Summer of Love', 'Flower Child Room', 'Poster Room', 'Skylight Room', 'Redwood Forest Room']
 	        },
 	        yAxis: {
 	            title: {
-	                text: 'Fruit eaten'
+	                text: 'Guest nights this month'
 	            }
 	        },
 	        series: [{
 	            name: 'Jane',
-	            data: [1, 0, 4]
-	        }, {
-	            name: 'John',
-	            data: [5, 7, 3]
+	            data: [{{total_nights}}, 0, 4]
 	        }]
     	});
 	});
   </script>
+  <div>{{location}},{{total_nights}}, {{reservations|length}}</div>
   <div id="container" style="width:100%; height:400px;"></div>
+
 
 <div class="row">
 	<div class="alert alert-warning" role="alert"><b>Warning</b> There's still a few errors on this page, possibly off-by-one errors. The <a href="{% url 'location_payments_today' location.slug %}">payments page</a> is authoritative, but this is pretty close and still a good reference. Want to improve this page? Check it out on <a href="https://github.com/jessykate/modernomad/blob/master/core/views.py#L118">github</a> :).</div>
